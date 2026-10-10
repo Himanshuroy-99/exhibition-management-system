@@ -1,48 +1,1283 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Log in — Exhibition Management System</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sign in | Smart Exhibition System</title>
+
+  <meta
+    name="description"
+    content="Sign in to Smart Exhibition System and manage your exhibition experience."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+
+      font-family: "DM Sans", sans-serif;
+
+      color: #111827;
+
+      background:
+        radial-gradient(
+          circle at 10% 10%,
+          rgba(255, 106, 0, 0.13),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 90% 80%,
+          rgba(40, 120, 255, 0.10),
+          transparent 30%
+        ),
+        #f5f7fa;
+
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+
+    /* =====================================================
+       VARIABLES
+    ===================================================== */
+
+    :root {
+      --dark: #08111f;
+      --dark-2: #0d1a2b;
+      --orange: #ff6a00;
+      --orange-light: #ff8a32;
+
+      --white: #ffffff;
+
+      --text: #111827;
+      --muted: #667085;
+
+      --border: #e4e7ec;
+
+      --danger: #dc2626;
+    }
+
+
+    /* =====================================================
+       BACKGROUND GRID
+    ===================================================== */
+
+    .background-grid {
+      position: fixed;
+
+      inset: 0;
+
+      pointer-events: none;
+
+      opacity: 0.35;
+
+      background-image:
+        linear-gradient(
+          rgba(8, 17, 31, 0.035) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(8, 17, 31, 0.035) 1px,
+          transparent 1px
+        );
+
+      background-size: 55px 55px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 85%
+        );
+    }
+
+
+    /* =====================================================
+       NAVBAR
+    ===================================================== */
+
+    .topbar {
+      position: relative;
+
+      z-index: 10;
+
+      width: min(
+        1240px,
+        calc(100% - 40px)
+      );
+
+      margin: auto;
+
+      padding: 22px 0;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+
+      align-items: center;
+
+      gap: 11px;
+
+      color: var(--dark);
+
+      font-family: "Space Grotesk", sans-serif;
+
+      font-size: 18px;
+
+      font-weight: 700;
+
+      letter-spacing: -0.02em;
+    }
+
+    .brand-dot {
+      width: 37px;
+      height: 37px;
+
+      display: grid;
+
+      place-items: center;
+
+      border-radius: 10px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--orange-light)
+        );
+
+      color: white;
+
+      font-size: 15px;
+
+      font-weight: 800;
+
+      box-shadow:
+        0 9px 25px
+        rgba(255, 106, 0, 0.25);
+    }
+
+    .nav-right {
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+    }
+
+    .nav-text {
+      color: #667085;
+
+      font-size: 13px;
+    }
+
+    .btn-outline {
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 10px 16px;
+
+      border: 1px solid #d9dee7;
+
+      border-radius: 9px;
+
+      background: white;
+
+      color: var(--dark);
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      transition: 0.25s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--orange);
+
+      color: var(--orange);
+
+      transform: translateY(-1px);
+    }
+
+
+    /* =====================================================
+       MAIN
+    ===================================================== */
+
+    .auth-wrap {
+      position: relative;
+
+      z-index: 2;
+
+      min-height:
+        calc(100vh - 80px);
+
+      width: min(
+        1180px,
+        calc(100% - 40px)
+      );
+
+      margin: auto;
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 460px;
+
+      gap: 80px;
+
+      align-items: center;
+
+      padding: 60px 0 90px;
+    }
+
+
+    /* =====================================================
+       LEFT CONTENT
+    ===================================================== */
+
+    .auth-intro {
+      max-width: 590px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      padding: 7px 11px;
+
+      border-radius: 100px;
+
+      background:
+        rgba(255, 106, 0, 0.08);
+
+      color: var(--orange);
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.07em;
+
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: var(--orange);
+    }
+
+    .auth-intro h1 {
+      margin-top: 22px;
+
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
+      font-size:
+        clamp(48px, 6vw, 78px);
+
+      line-height: 0.98;
+
+      letter-spacing: -0.055em;
+
+      color: var(--dark);
+    }
+
+    .auth-intro h1 span {
+      color: var(--orange);
+    }
+
+    .intro-text {
+      max-width: 510px;
+
+      margin-top: 22px;
+
+      color: var(--muted);
+
+      font-size: 16px;
+
+      line-height: 1.75;
+    }
+
+
+    /* =====================================================
+       MINI FEATURES
+    ===================================================== */
+
+    .mini-features {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 12px;
+
+      max-width: 520px;
+
+      margin-top: 35px;
+    }
+
+    .mini-feature {
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      padding: 13px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 11px;
+
+      background:
+        rgba(255, 255, 255, 0.72);
+
+      color: #475467;
+
+      font-size: 12px;
+
+      font-weight: 600;
+    }
+
+    .mini-icon {
+      width: 28px;
+      height: 28px;
+
+      display: grid;
+
+      place-items: center;
+
+      flex-shrink: 0;
+
+      border-radius: 8px;
+
+      background: #fff1e8;
+
+      color: var(--orange);
+
+      font-size: 12px;
+
+      font-weight: 800;
+    }
+
+
+    /* =====================================================
+       LOGIN CARD
+    ===================================================== */
+
+    .auth-card {
+      position: relative;
+
+      padding: 35px;
+
+      border: 1px solid
+        rgba(255, 255, 255, 0.8);
+
+      border-radius: 22px;
+
+      background:
+        rgba(255, 255, 255, 0.88);
+
+      backdrop-filter:
+        blur(20px);
+
+      -webkit-backdrop-filter:
+        blur(20px);
+
+      box-shadow:
+        0 30px 80px
+        rgba(8, 17, 31, 0.13);
+
+      animation:
+        cardIn 0.65s ease forwards;
+    }
+
+    @keyframes cardIn {
+
+      from {
+        opacity: 0;
+
+        transform:
+          translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+
+        transform:
+          translateY(0);
+      }
+
+    }
+
+    .card-top {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      margin-bottom: 25px;
+    }
+
+    .card-logo {
+      width: 42px;
+      height: 42px;
+
+      display: grid;
+
+      place-items: center;
+
+      border-radius: 11px;
+
+      background: var(--dark);
+
+      color: white;
+
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
+      font-weight: 700;
+    }
+
+    .secure-badge {
+      display: flex;
+
+      align-items: center;
+
+      gap: 6px;
+
+      color: #667085;
+
+      font-size: 10px;
+
+      font-weight: 600;
+    }
+
+    .secure-dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: #18a875;
+    }
+
+    .auth-card h2 {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
+      font-size: 32px;
+
+      letter-spacing: -0.035em;
+
+      color: var(--dark);
+    }
+
+    .sub {
+      margin-top: 8px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+
+      line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       FORM
+    ===================================================== */
+
+    #loginForm {
+      margin-top: 28px;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #344054;
+
+      font-size: 12px;
+
+      font-weight: 700;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+
+      left: 14px;
+
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color: #98a2b3;
+
+      font-size: 13px;
+
+      pointer-events: none;
+    }
+
+    .field input {
+      width: 100%;
+
+      height: 49px;
+
+      padding:
+        0 14px 0 39px;
+
+      border:
+        1px solid #d9dee7;
+
+      border-radius: 10px;
+
+      outline: none;
+
+      background: white;
+
+      color: var(--dark);
+
+      font-size: 13px;
+
+      transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+    }
+
+    .field input::placeholder {
+      color: #a0a7b3;
+    }
+
+    .field input:focus {
+      border-color: var(--orange);
+
+      box-shadow:
+        0 0 0 4px
+        rgba(255, 106, 0, 0.09);
+    }
+
+
+    /* =====================================================
+       PASSWORD TOGGLE
+    ===================================================== */
+
+    .password-toggle {
+      position: absolute;
+
+      right: 12px;
+
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      border: none;
+
+      background: transparent;
+
+      color: #98a2b3;
+
+      cursor: pointer;
+
+      font-size: 11px;
+
+      font-weight: 700;
+    }
+
+    .password-toggle:hover {
+      color: var(--orange);
+    }
+
+
+    /* =====================================================
+       ERROR
+    ===================================================== */
+
+    .error-text {
+      min-height: 18px;
+
+      margin:
+        -3px 0 8px;
+
+      color: var(--danger);
+
+      font-size: 11px;
+
+      line-height: 1.5;
+    }
+
+
+    /* =====================================================
+       BUTTON
+    ===================================================== */
+
+    .btn {
+      border: none;
+
+      cursor: pointer;
+    }
+
+    .btn-copper {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      width: 100%;
+
+      min-height: 50px;
+
+      border-radius: 10px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--orange-light)
+        );
+
+      color: white;
+
+      font-size: 13px;
+
+      font-weight: 800;
+
+      box-shadow:
+        0 12px 28px
+        rgba(255, 106, 0, 0.24);
+
+      transition:
+        transform 0.25s,
+        box-shadow 0.25s;
+    }
+
+    .btn-copper:hover {
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 17px 35px
+        rgba(255, 106, 0, 0.32);
+    }
+
+    .btn-copper:active {
+      transform:
+        translateY(0);
+    }
+
+    .btn-copper.loading {
+      pointer-events: none;
+
+      opacity: 0.75;
+    }
+
+
+    /* =====================================================
+       DIVIDER
+    ===================================================== */
+
+    .divider {
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      margin: 23px 0;
+
+      color: #98a2b3;
+
+      font-size: 10px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+
+      flex: 1;
+
+      height: 1px;
+
+      background: #e6e9ee;
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    .form-footer {
+      text-align: center;
+
+      color: #667085;
+
+      font-size: 12px;
+
+      line-height: 1.6;
+    }
+
+    .form-footer a {
+      color: var(--orange);
+
+      font-weight: 800;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+
+
+    /* =====================================================
+       BOTTOM NOTE
+    ===================================================== */
+
+    .bottom-note {
+      margin-top: 20px;
+
+      text-align: center;
+
+      color: #98a2b3;
+
+      font-size: 10px;
+
+      line-height: 1.5;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 950px) {
+
+      .auth-wrap {
+        grid-template-columns: 1fr;
+
+        max-width: 560px;
+
+        gap: 45px;
+      }
+
+      .auth-intro {
+        text-align: center;
+
+        max-width: 100%;
+      }
+
+      .intro-text {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .mini-features {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .eyebrow {
+        justify-content: center;
+      }
+
+    }
+
+
+    @media (max-width: 600px) {
+
+      .topbar {
+        width:
+          calc(100% - 28px);
+
+        padding: 16px 0;
+      }
+
+      .brand {
+        font-size: 15px;
+      }
+
+      .brand-dot {
+        width: 34px;
+        height: 34px;
+      }
+
+      .nav-text {
+        display: none;
+      }
+
+      .auth-wrap {
+        width:
+          calc(100% - 28px);
+
+        padding:
+          45px 0 60px;
+      }
+
+      .auth-intro h1 {
+        font-size: 47px;
+      }
+
+      .intro-text {
+        font-size: 14px;
+      }
+
+      .mini-features {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-card {
+        padding: 25px 20px;
+
+        border-radius: 18px;
+      }
+
+      .auth-card h2 {
+        font-size: 28px;
+      }
+
+    }
+
+  </style>
 </head>
+
+
 <body>
 
-<nav class="topbar">
-  <a href="index.html" style="text-decoration:none;">
-    <div class="brand"><span class="dot"></span> EXHIBIT/OS</div>
-  </a>
-  <div class="links">
-    <a href="signup.html" class="btn-outline">Sign up</a>
-  </div>
-</nav>
+  <div class="background-grid"></div>
 
-<div class="auth-wrap">
-  <div class="auth-card">
-    <div class="eyebrow">Welcome back</div>
-    <h1>Log in</h1>
-    <p class="sub">Enter your details to reach your dashboard.</p>
 
-    <form id="loginForm">
-      <div class="field">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="you@company.com" required>
+  <!-- =====================================================
+       NAVBAR
+  ====================================================== -->
+
+  <nav class="topbar">
+
+    <a
+      href="index.html"
+      aria-label="Smart Exhibition System home"
+    >
+
+      <div class="brand">
+
+        <span class="brand-dot">
+          S
+        </span>
+
+        Smart Exhibition System
+
       </div>
-      <div class="field">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="••••••••" required>
-      </div>
-      <div class="error-text" id="formError"></div>
-      <button type="submit" class="btn btn-copper btn-full">Sign in</button>
-    </form>
 
-    <div class="form-footer">
-      Don't have an account? <a href="signup.html">Create one</a>
+    </a>
+
+
+    <div class="nav-right">
+
+      <span class="nav-text">
+        New here?
+      </span>
+
+      <a
+        href="signup.html"
+        class="btn-outline"
+      >
+        Create account
+      </a>
+
     </div>
-  </div>
-</div>
 
-<script src="js/api.js"></script>
-<script src="js/auth.js"></script>
+  </nav>
+
+
+  <!-- =====================================================
+       MAIN AUTH SECTION
+  ====================================================== -->
+
+  <main class="auth-wrap">
+
+
+    <!-- ===================================================
+         LEFT SIDE
+    ==================================================== -->
+
+    <section class="auth-intro">
+
+      <div class="eyebrow">
+
+        <span class="eyebrow-dot"></span>
+
+        Exhibition command center
+
+      </div>
+
+
+      <h1>
+
+        Welcome
+        <span>back.</span>
+
+      </h1>
+
+
+      <p class="intro-text">
+
+        Your exhibitions, booths, registrations and
+        participants — all connected in one intelligent
+        platform.
+
+      </p>
+
+
+      <div class="mini-features">
+
+        <div class="mini-feature">
+
+          <span class="mini-icon">
+            ✓
+          </span>
+
+          Secure role-based access
+
+        </div>
+
+
+        <div class="mini-feature">
+
+          <span class="mini-icon">
+            ◫
+          </span>
+
+          Live booth management
+
+        </div>
+
+
+        <div class="mini-feature">
+
+          <span class="mini-icon">
+            ◎
+          </span>
+
+          Centralized records
+
+        </div>
+
+
+        <div class="mini-feature">
+
+          <span class="mini-icon">
+            ⇄
+          </span>
+
+          Connected experiences
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         LOGIN CARD
+    ==================================================== -->
+
+    <section class="auth-card">
+
+      <div class="card-top">
+
+        <div class="card-logo">
+          S
+        </div>
+
+        <div class="secure-badge">
+
+          <span class="secure-dot"></span>
+
+          Secure sign in
+
+        </div>
+
+      </div>
+
+
+      <h2>
+        Log in
+      </h2>
+
+      <p class="sub">
+        Enter your credentials to access your dashboard.
+      </p>
+
+
+      <!-- IMPORTANT:
+           Keep these IDs because auth.js uses them.
+      -->
+
+      <form id="loginForm">
+
+        <!-- EMAIL -->
+
+        <div class="field">
+
+          <label for="email">
+            Email address
+          </label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+              @
+            </span>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@company.com"
+              autocomplete="email"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="field">
+
+          <label for="password">
+            Password
+          </label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+              •
+            </span>
+
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            >
+
+            <button
+              type="button"
+              class="password-toggle"
+              id="passwordToggle"
+            >
+              Show
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div
+          class="error-text"
+          id="formError"
+          role="alert"
+        ></div>
+
+
+        <!-- SUBMIT -->
+
+        <button
+          type="submit"
+          class="btn btn-copper"
+          id="loginButton"
+        >
+          Sign in
+        </button>
+
+      </form>
+
+
+      <div class="divider">
+        OR
+      </div>
+
+
+      <div class="form-footer">
+
+        Don't have an account?
+
+        <a href="signup.html">
+          Create one
+        </a>
+
+      </div>
+
+
+      <div class="bottom-note">
+
+        By continuing, you agree to use the platform
+        responsibly and securely.
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       EXISTING AUTH SYSTEM
+       
+       DO NOT REMOVE THESE.
+       
+       Your existing backend authentication continues
+       through these files.
+  ====================================================== -->
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+
+
+  <!-- =====================================================
+       UI JAVASCRIPT
+  ====================================================== -->
+
+  <script>
+
+    /* =====================================================
+       PASSWORD SHOW / HIDE
+    ====================================================== */
+
+    const passwordInput =
+      document.getElementById("password");
+
+    const passwordToggle =
+      document.getElementById("passwordToggle");
+
+
+    passwordToggle.addEventListener(
+      "click",
+      function () {
+
+        if (
+          passwordInput.type === "password"
+        ) {
+
+          passwordInput.type = "text";
+
+          passwordToggle.textContent =
+            "Hide";
+
+        } else {
+
+          passwordInput.type = "password";
+
+          passwordToggle.textContent =
+            "Show";
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       BUTTON LOADING STATE
+       
+       This does NOT replace auth.js.
+       It only changes the UI when the form is submitted.
+    ====================================================== */
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+    const loginButton =
+      document.getElementById("loginButton");
+
+
+    loginForm.addEventListener(
+      "submit",
+      function () {
+
+        loginButton.classList.add(
+          "loading"
+        );
+
+        loginButton.textContent =
+          "Signing in...";
+
+      }
+    );
+
+  </script>
+
 </body>
 </html>

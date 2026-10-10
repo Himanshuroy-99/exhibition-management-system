@@ -1,5 +1,5 @@
 // Central API helper for the Smart Exhibition frontend.
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://smart-exhibition-system.onrender.com/api";
 const DEMO_MODE = false;
 
 function getToken() {

@@ -1,79 +1,1827 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Exhibition Management System</title>
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EXHIBIT/OS — Exhibition Management System</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f7f8fa;
+            color: #122033;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 76px;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            background: rgba(8, 20, 34, 0.94);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            color: white;
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #ff6a00;
+            box-shadow: 0 0 15px rgba(255,106,0,0.6);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.86);
+            font-size: 14px;
+            font-weight: 500;
+
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff7a1a;
+        }
+
+        .nav-login {
+            border: 1px solid rgba(255,255,255,0.35);
+            padding: 10px 18px;
+            border-radius: 7px;
+        }
+
+        .nav-signup {
+            background: #ff6a00;
+            color: white !important;
+
+            padding: 11px 19px;
+            border-radius: 7px;
+        }
+
+        .nav-signup:hover {
+            background: #e85e00;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            position: relative;
+            min-height: 760px;
+
+            display: flex;
+            align-items: center;
+
+            overflow: hidden;
+            color: white;
+        }
+
+        .hero-slides {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+
+            background-size: cover;
+            background-position: center;
+
+            opacity: 0;
+
+            transform: scale(1.05);
+
+            transition:
+                opacity 1.2s ease,
+                transform 6s ease;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Dark overlay */
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(5, 20, 35, 0.94) 0%,
+                    rgba(5, 20, 35, 0.75) 45%,
+                    rgba(5, 20, 35, 0.35) 100%
+                );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            width: min(1250px, 88%);
+            margin: 70px auto 0;
+        }
+
+        .eyebrow {
+            display: inline-block;
+
+            padding: 8px 14px;
+
+            border-radius: 30px;
+
+            background: rgba(255,106,0,0.14);
+            border: 1px solid rgba(255,106,0,0.4);
+
+            color: #ff974d;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            max-width: 850px;
+
+            font-size: clamp(45px, 6vw, 78px);
+            line-height: 1.03;
+
+            font-weight: 800;
+            letter-spacing: -2.5px;
+
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: #ff7111;
+        }
+
+        .hero-description {
+            max-width: 680px;
+
+            font-size: 18px;
+            line-height: 1.75;
+
+            color: rgba(255,255,255,0.82);
+
+            margin-bottom: 34px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 14px 23px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: #ff6a00;
+            color: white;
+
+            box-shadow: 0 10px 25px rgba(255,106,0,0.25);
+        }
+
+        .btn-primary:hover {
+            background: #e85e00;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 1px solid rgba(255,255,255,0.45);
+            background: rgba(255,255,255,0.06);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.13);
+            transform: translateY(-2px);
+        }
+
+        /* Hero mini information */
+
+        .hero-info {
+            display: flex;
+            gap: 45px;
+
+            margin-top: 65px;
+
+            flex-wrap: wrap;
+        }
+
+        .hero-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hero-info-number {
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .hero-info-label {
+            color: rgba(255,255,255,0.62);
+            font-size: 12px;
+        }
+
+        /* Slider dots */
+
+        .slider-dots {
+            position: absolute;
+
+            z-index: 5;
+
+            bottom: 35px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            display: flex;
+            gap: 9px;
+        }
+
+        .slider-dot {
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            border: none;
+
+            background: rgba(255,255,255,0.4);
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .slider-dot.active {
+            width: 28px;
+            border-radius: 10px;
+            background: #ff6a00;
+        }
+
+        /* =========================
+           SECTION COMMON
+        ========================= */
+
+        section {
+            padding: 100px 6%;
+        }
+
+        .section-container {
+            width: min(1200px, 100%);
+            margin: auto;
+        }
+
+        .section-label {
+            color: #ff6a00;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 4vw, 48px);
+            line-height: 1.15;
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 16px;
+        }
+
+        .section-description {
+            max-width: 680px;
+
+            color: #647184;
+
+            line-height: 1.7;
+            font-size: 16px;
+
+            margin-bottom: 50px;
+        }
+
+
+        /* =========================
+           DISCOVER EXHIBITIONS
+        ========================= */
+
+        .discover-section {
+            background: #f7f8fa;
+        }
+
+        .discover-tools {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .discover-input,
+        .discover-select {
+            width: 100%;
+            border: 1px solid #dfe5ec;
+            background: white;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font: inherit;
+            color: #122033;
+            outline: none;
+        }
+
+        .discover-input:focus,
+        .discover-select:focus {
+            border-color: #ff9b5b;
+            box-shadow: 0 0 0 3px rgba(255,106,0,0.10);
+        }
+
+        .exhibition-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .exhibition-card {
+            background: white;
+            border: 1px solid #e4e9ef;
+            border-radius: 15px;
+            padding: 24px;
+            transition: 0.3s;
+        }
+
+        .exhibition-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 35px rgba(18,32,51,0.08);
+            border-color: #ffb27a;
+        }
+
+        .exhibition-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+
+        .exhibition-category {
+            display: inline-flex;
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #fff0e7;
+            color: #ff6a00;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+        }
+
+        .exhibition-date {
+            color: #687588;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .exhibition-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .exhibition-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            color: #687588;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .exhibition-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .discover-btn {
+            border: 0;
+            background: #ff6a00;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .discover-btn:hover {
+            background: #e85e00;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            padding: 35px;
+            text-align: center;
+            background: white;
+            border: 1px dashed #d8dee7;
+            border-radius: 14px;
+            color: #687588;
+        }
+
+        .discover-note {
+            margin-top: 18px;
+            color: #7a8696;
+            font-size: 12px;
+        }
+
+        .exhibition-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(5,20,35,.72);
+        }
+
+        .exhibition-modal.show {
+            display: flex;
+        }
+
+        .modal-card {
+            width: min(560px, 100%);
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(0,0,0,.25);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            border: 0;
+            background: #f2f4f7;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .modal-card h3 {
+            font-size: 26px;
+            margin: 14px 0 12px;
+        }
+
+        .modal-card p {
+            color: #687588;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        @media (max-width: 900px) {
+            .discover-tools,
+            .exhibition-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* =========================
+           ROLE SECTION
+        ========================= */
+
+        .roles-section {
+            background: white;
+        }
+
+        .role-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 22px;
+        }
+
+        .role-card {
+            position: relative;
+
+            padding: 35px;
+
+            border-radius: 15px;
+
+            background: #f8f9fb;
+
+            border: 1px solid #e7ebf0;
+
+            transition: 0.35s;
+        }
+
+        .role-card:hover {
+            transform: translateY(-7px);
+
+            box-shadow:
+                0 20px 45px rgba(18,32,51,0.09);
+
+            border-color: #ffb27a;
+        }
+
+        .role-icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: #fff0e7;
+
+            color: #ff6a00;
+
+            font-size: 23px;
+
+            margin-bottom: 25px;
+        }
+
+        .role-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .role-card p {
+            color: #687588;
+            line-height: 1.7;
+
+            font-size: 14px;
+
+            margin-bottom: 22px;
+        }
+
+        .role-link {
+            color: #ff6a00;
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           HOW IT WORKS
+        ========================= */
+
+        .how-section {
+            background: #f7f8fa;
+        }
+
+        .steps {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 25px;
+        }
+
+        .step {
+            position: relative;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 13px;
+
+            border: 1px solid #e5e9ef;
+        }
+
+        .step-number {
+            font-size: 13px;
+            font-weight: 800;
+
+            color: #ff6a00;
+
+            margin-bottom: 20px;
+        }
+
+        .step h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: #697587;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .features-section {
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .feature {
+            padding: 28px;
+
+            border: 1px solid #e7ebef;
+
+            border-radius: 12px;
+
+            transition: 0.3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.06);
+        }
+
+        .feature-icon {
+            font-size: 25px;
+            margin-bottom: 17px;
+        }
+
+        .feature h3 {
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #6d798a;
+
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta-section {
+            padding: 85px 6%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #071a2d,
+                    #102d47
+                );
+
+            color: white;
+        }
+
+        .cta-container {
+            width: min(1050px, 100%);
+            margin: auto;
+
+            text-align: center;
+        }
+
+        .cta-container h2 {
+            font-size: clamp(32px, 4vw, 50px);
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 18px;
+        }
+
+        .cta-container p {
+            max-width: 650px;
+
+            margin: 0 auto 30px;
+
+            color: rgba(255,255,255,0.7);
+
+            line-height: 1.7;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #061422;
+
+            color: white;
+
+            padding: 55px 6% 25px;
+        }
+
+        .footer-container {
+            width: min(1200px, 100%);
+            margin: auto;
+        }
+
+        .footer-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 40px;
+
+            padding-bottom: 40px;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-brand {
+            max-width: 350px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.55);
+
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 60px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-column strong {
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .footer-column a {
+            color: rgba(255,255,255,0.55);
+
+            font-size: 13px;
+
+            transition: 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #ff7111;
+        }
+
+        .footer-bottom {
+            padding-top: 22px;
+
+            display: flex;
+            justify-content: space-between;
+
+            color: rgba(255,255,255,0.4);
+
+            font-size: 12px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .nav-links {
+                gap: 14px;
+            }
+
+            .nav-links a:not(.nav-login):not(.nav-signup) {
+                display: none;
+            }
+
+            .hero {
+                min-height: 700px;
+            }
+
+            .role-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-top {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 17px;
+            }
+
+            .nav-login {
+                padding: 8px 12px;
+            }
+
+            .nav-signup {
+                padding: 9px 12px;
+            }
+
+            .hero {
+                min-height: 720px;
+            }
+
+            .hero-content {
+                width: calc(100% - 40px);
+            }
+
+            .hero h1 {
+                font-size: 43px;
+                letter-spacing: -1.5px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .hero-info {
+                gap: 25px;
+                margin-top: 45px;
+            }
+
+            section {
+                padding: 70px 20px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                gap: 35px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            .hero-slide {
+                transition: none;
+            }
+
+            * {
+                transition: none !important;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<nav class="topbar">
-  <div class="brand"><span class="dot"></span> EXHIBIT/OS</div>
-  <div class="links">
-    <a href="#roles">Who it's for</a>
-    <a href="login.html">Log in</a>
-    <a href="signup.html" class="btn-outline">Sign up</a>
-  </div>
-</nav>
+<!-- =========================
+     NAVBAR
+========================= -->
 
-<div class="hero">
-  <div class="eyebrow">Exhibition Management · Halls, Booths & Leads</div>
-  <h1>Run the whole floor from one screen.</h1>
-  <p class="sub">Organizers lay out halls and booths, exhibitors fill them with products and staff, visitors walk through and leave leads behind. One system, three roles, no spreadsheets.</p>
-  <div class="hero-cta">
-    <a href="signup.html" class="btn btn-copper">Create an account</a>
-    <a href="#roles" class="btn btn-ghost">See how it works</a>
-  </div>
+<header class="navbar">
 
-  <div class="floorplan" aria-hidden="true">
-    <div class="booth filled">A-01</div>
-    <div class="booth filled">A-02</div>
-    <div class="booth">A-03</div>
-    <div class="booth filled">A-04</div>
-    <div class="booth">A-05</div>
-    <div class="booth filled">A-06</div>
-    <div class="booth">B-01</div>
-    <div class="booth filled">B-02</div>
-    <div class="booth filled">B-03</div>
-    <div class="booth">B-04</div>
-    <div class="booth filled">B-05</div>
-    <div class="booth">B-06</div>
-    <div class="booth filled">C-01</div>
-    <div class="booth">C-02</div>
-    <div class="booth filled">C-03</div>
-    <div class="booth filled">C-04</div>
-    <div class="booth">C-05</div>
-    <div class="booth filled">C-06</div>
-  </div>
-</div>
+    <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        EXHIBIT/OS
+    </a>
 
-<section id="roles">
-  <h2 class="section-title">Access <span>· three roles, one login screen</span></h2>
-  <h3 class="section-heading">Built around who's actually in the room</h3>
-  <div class="role-grid">
-    <div class="role-card organizer">
-      <div class="tag">Organizer</div>
-      <h4>Lay out the event</h4>
-      <p>Create the exhibition, divide it into halls, mark out booths, and approve which companies get in.</p>
-      <a href="signup.html">Sign up as organizer →</a>
+    <nav class="nav-links">
+
+        <a href="#discover">Discover</a>
+        <a href="#roles">Roles</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#features">Features</a>
+
+        <a href="login.html" class="nav-login">
+            Log in
+        </a>
+
+        <a href="signup.html" class="nav-signup">
+            Sign up
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================
+     HERO + IMAGE SLIDER
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-slides">
+
+        <!-- YOUR EXISTING ASSETS -->
+
+        <div
+            class="hero-slide active"
+            style="background-image: url('assets/expo1.png');">
+        </div>
+
+        <div
+            class="hero-slide"
+            style="background-image: url('assets/expo2.png');">
+        </div>
+
+        <div
+            class="hero-slide"
+            style="background-image: url('assets/expo3.png');">
+        </div>
+
+        <div
+            class="hero-slide"
+            style="background-image: url('assets/expo4.png');">
+        </div>
+
+        <div
+            class="hero-slide"
+            style="background-image: url('assets/expo5.png');">
+        </div>
+
+        <div
+            class="hero-slide"
+            style="background-image: url('assets/expo6.png');">
+        </div>
+
     </div>
-    <div class="role-card exhibitor">
-      <div class="tag">Exhibitor</div>
-      <h4>Claim your booth</h4>
-      <p>Register for an exhibition, list your products, upload brochures, and collect leads as people walk by.</p>
-      <a href="signup.html">Sign up as exhibitor →</a>
+
+
+    <div class="hero-overlay"></div>
+
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+            Exhibition Management · Halls · Booths · Leads
+        </div>
+
+        <h1>
+            Run your entire exhibition
+            <span>from one place.</span>
+        </h1>
+
+        <p class="hero-description">
+            EXHIBIT/OS brings organizers, exhibitors and visitors
+            together on one simple platform. Manage exhibitions,
+            booths, products, visitors and leads without relying
+            on spreadsheets.
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a href="signup.html" class="btn btn-primary">
+                Create an account →
+            </a>
+
+            <a href="#discover" class="btn btn-secondary">
+                Explore the platform
+            </a>
+
+        </div>
+
+
+        <div class="hero-info">
+
+            <div class="hero-info-item">
+                <span class="hero-info-number">3</span>
+                <span class="hero-info-label">
+                    Connected Roles
+                </span>
+            </div>
+
+            <div class="hero-info-item">
+                <span class="hero-info-number">1</span>
+                <span class="hero-info-label">
+                    Unified Platform
+                </span>
+            </div>
+
+            <div class="hero-info-item">
+                <span class="hero-info-number">24/7</span>
+                <span class="hero-info-label">
+                    Web Access
+                </span>
+            </div>
+
+        </div>
+
     </div>
-    <div class="role-card visitor">
-      <div class="tag">Visitor</div>
-      <h4>Walk the floor</h4>
-      <p>Browse upcoming exhibitions, check in with a QR code, and leave feedback on the way out.</p>
-      <a href="signup.html">Sign up as visitor →</a>
+
+
+    <!-- SLIDER DOTS -->
+
+    <div class="slider-dots">
+
+        <button class="slider-dot active" data-slide="0"></button>
+        <button class="slider-dot" data-slide="1"></button>
+        <button class="slider-dot" data-slide="2"></button>
+        <button class="slider-dot" data-slide="3"></button>
+        <button class="slider-dot" data-slide="4"></button>
+        <button class="slider-dot" data-slide="5"></button>
+
     </div>
-  </div>
+
 </section>
 
-<footer>EXHIBIT/OS — EXHIBITION MANAGEMENT SYSTEM</footer>
+
+
+<!-- =========================
+     DISCOVER EXHIBITIONS
+========================= -->
+
+<section class="discover-section" id="discover">
+    <div class="section-container">
+        <div class="section-label">Find your next event</div>
+        <h2 class="section-title">Discover exhibitions happening around you.</h2>
+        <p class="section-description">
+            Search exhibitions by name, city or category and explore the events available on EXHIBIT/OS.
+        </p>
+
+        <div class="discover-tools">
+            <input id="exhibitionSearch" class="discover-input" type="search" placeholder="🔎 Search exhibitions...">
+            <select id="cityFilter" class="discover-select">
+                <option value="">All cities</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Bhopal">Bhopal</option>
+                <option value="Indore">Indore</option>
+            </select>
+            <select id="categoryFilter" class="discover-select">
+                <option value="">All categories</option>
+                <option value="Technology">Technology</option>
+                <option value="Business">Business</option>
+                <option value="Career">Career</option>
+                <option value="Manufacturing">Manufacturing</option>
+            </select>
+        </div>
+
+        <div class="exhibition-grid" id="exhibitionGrid"></div>
+        <p class="discover-note">
+            Exhibition listings shown here are demo entries for the landing-page experience. The same UI can be connected to your existing exhibition API without changing the design.
+        </p>
+    </div>
+</section>
+
+<!-- Exhibition details modal -->
+<div class="exhibition-modal" id="exhibitionModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+        <span class="exhibition-category" id="modalCategory"></span>
+        <h3 id="modalTitle"></h3>
+        <p id="modalMeta"></p>
+        <p id="modalDescription" style="margin-top:14px;"></p>
+        <div style="margin-top:22px;">
+            <a href="signup.html" class="btn btn-primary">Register / Get started →</a>
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     ROLES
+========================= -->
+
+<section class="roles-section" id="roles">
+
+    <div class="section-container">
+
+        <div class="section-label">
+            One platform
+        </div>
+
+        <h2 class="section-title">
+            Built for everyone involved in an exhibition.
+        </h2>
+
+        <p class="section-description">
+            Different users have different responsibilities.
+            EXHIBIT/OS provides dedicated functionality while
+            keeping everyone connected through the same platform.
+        </p>
+
+
+        <div class="role-grid">
+
+            <!-- Organizer -->
+
+            <div class="role-card">
+
+                <div class="role-icon">
+                    🏢
+                </div>
+
+                <h3>
+                    Organizer
+                </h3>
+
+                <p>
+                    Create exhibitions, manage halls and booths,
+                    approve exhibitors and control the entire
+                    exhibition setup.
+                </p>
+
+                <a href="signup.html" class="role-link">
+                    Sign up as Organizer →
+                </a>
+
+            </div>
+
+
+            <!-- Exhibitor -->
+
+            <div class="role-card">
+
+                <div class="role-icon">
+                    🛍️
+                </div>
+
+                <h3>
+                    Exhibitor
+                </h3>
+
+                <p>
+                    Register for exhibitions, manage your booth,
+                    showcase products, upload brochures and
+                    collect visitor leads.
+                </p>
+
+                <a href="signup.html" class="role-link">
+                    Sign up as Exhibitor →
+                </a>
+
+            </div>
+
+
+            <!-- Visitor -->
+
+            <div class="role-card">
+
+                <div class="role-icon">
+                    👥
+                </div>
+
+                <h3>
+                    Visitor
+                </h3>
+
+                <p>
+                    Discover exhibitions, visit booths,
+                    interact with exhibitors and provide
+                    valuable feedback.
+                </p>
+
+                <a href="signup.html" class="role-link">
+                    Sign up as Visitor →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     HOW IT WORKS
+========================= -->
+
+<section class="how-section" id="how-it-works">
+
+    <div class="section-container">
+
+        <div class="section-label">
+            Simple workflow
+        </div>
+
+        <h2 class="section-title">
+            From setup to visitor engagement.
+        </h2>
+
+        <p class="section-description">
+            A straightforward workflow designed to keep
+            exhibition management organized.
+        </p>
+
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">
+                    STEP 01
+                </div>
+
+                <h3>
+                    Create Exhibition
+                </h3>
+
+                <p>
+                    Organizers create the exhibition and
+                    configure its basic information.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    STEP 02
+                </div>
+
+                <h3>
+                    Manage Booths
+                </h3>
+
+                <p>
+                    Organize halls and booths and manage
+                    exhibitor participation.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    STEP 03
+                </div>
+
+                <h3>
+                    Showcase Products
+                </h3>
+
+                <p>
+                    Exhibitors can present their products,
+                    company information and brochures.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    STEP 04
+                </div>
+
+                <h3>
+                    Connect & Collect Leads
+                </h3>
+
+                <p>
+                    Visitors interact with exhibitors and
+                    useful leads can be collected.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FEATURES
+========================= -->
+
+<section class="features-section" id="features">
+
+    <div class="section-container">
+
+        <div class="section-label">
+            Platform features
+        </div>
+
+        <h2 class="section-title">
+            Everything you need to manage the exhibition.
+        </h2>
+
+        <p class="section-description">
+            Core functionality for organizers, exhibitors
+            and visitors in one centralized system.
+        </p>
+
+
+        <div class="features-grid">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🏛️
+                </div>
+
+                <h3>
+                    Hall & Booth Management
+                </h3>
+
+                <p>
+                    Organize exhibition halls and manage
+                    booth allocation efficiently.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🏢
+                </div>
+
+                <h3>
+                    Exhibitor Management
+                </h3>
+
+                <p>
+                    Manage exhibitor registrations and
+                    participation information.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📦
+                </div>
+
+                <h3>
+                    Products & Brochures
+                </h3>
+
+                <p>
+                    Allow exhibitors to showcase products
+                    and provide useful documents.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📱
+                </div>
+
+                <h3>
+                    Visitor Check-in
+                </h3>
+
+                <p>
+                    Make visitor participation and
+                    exhibition entry easier.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🤝
+                </div>
+
+                <h3>
+                    Lead Collection
+                </h3>
+
+                <p>
+                    Help exhibitors capture valuable
+                    visitor interactions and leads.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    Feedback
+                </h3>
+
+                <p>
+                    Collect visitor feedback to understand
+                    the exhibition experience.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CTA
+========================= -->
+
+<section class="cta-section">
+
+    <div class="cta-container">
+
+        <h2>
+            Ready to manage your exhibition smarter?
+        </h2>
+
+        <p>
+            Create your account and get started with
+            EXHIBIT/OS.
+        </p>
+
+        <a href="signup.html" class="btn btn-primary">
+            Get started →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="footer-container">
+
+        <div class="footer-top">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="logo">
+                    <span class="logo-dot"></span>
+                    EXHIBIT/OS
+                </a>
+
+                <p>
+                    Exhibition management made simpler
+                    for organizers, exhibitors and visitors.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <div class="footer-column">
+
+                    <strong>
+                        Platform
+                    </strong>
+
+                    <a href="#discover">
+                        Discover exhibitions
+                    </a>
+
+                    <a href="#roles">
+                        Roles
+                    </a>
+
+                    <a href="#how-it-works">
+                        How it works
+                    </a>
+
+                    <a href="#features">
+                        Features
+                    </a>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <strong>
+                        Account
+                    </strong>
+
+                    <a href="login.html">
+                        Log in
+                    </a>
+
+                    <a href="signup.html">
+                        Sign up
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 EXHIBIT/OS
+            </span>
+
+            <span>
+                Exhibition Management System
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================
+     SLIDER JAVASCRIPT
+========================= -->
+
+<script>
+
+    // =========================
+    // DISCOVER EXHIBITIONS
+    // =========================
+
+    const exhibitions = [
+        { name: "Tech Innovate Expo", city: "Delhi", category: "Technology", date: "12 Oct 2026", venue: "India Expo Centre", description: "Technology-focused exhibition for startups, products and digital innovation." },
+        { name: "Craft & Commerce Fair", city: "Mumbai", category: "Business", date: "18 Oct 2026", venue: "Bombay Exhibition Centre", description: "A marketplace-style exhibition connecting businesses, creators and visitors." },
+        { name: "Campus Careers Meet", city: "Bhopal", category: "Career", date: "02 Nov 2026", venue: "Convention Hall", description: "Career and recruitment focused event for students, employers and professionals." },
+        { name: "Smart Manufacturing Expo", city: "Indore", category: "Manufacturing", date: "16 Nov 2026", venue: "Exhibition Ground", description: "Industrial technology, manufacturing solutions and business networking event." },
+        { name: "Future Tech Summit", city: "Delhi", category: "Technology", date: "28 Nov 2026", venue: "Pragati Maidan", description: "Explore emerging technology products and connect with exhibitors." },
+        { name: "Business Connect Expo", city: "Mumbai", category: "Business", date: "05 Dec 2026", venue: "Jio World Convention Centre", description: "Business networking event for buyers, sellers and participating companies." }
+    ];
+
+    const exhibitionGrid = document.getElementById("exhibitionGrid");
+    const exhibitionSearch = document.getElementById("exhibitionSearch");
+    const cityFilter = document.getElementById("cityFilter");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const exhibitionModal = document.getElementById("exhibitionModal");
+    const modalClose = document.getElementById("modalClose");
+
+    function renderExhibitions() {
+        const search = exhibitionSearch.value.trim().toLowerCase();
+        const city = cityFilter.value;
+        const category = categoryFilter.value;
+
+        const filtered = exhibitions.filter((item) => {
+            const matchesSearch = !search ||
+                item.name.toLowerCase().includes(search) ||
+                item.city.toLowerCase().includes(search) ||
+                item.category.toLowerCase().includes(search);
+            const matchesCity = !city || item.city === city;
+            const matchesCategory = !category || item.category === category;
+            return matchesSearch && matchesCity && matchesCategory;
+        });
+
+        if (!filtered.length) {
+            exhibitionGrid.innerHTML = '<div class="no-results">No exhibitions found for your search. Try another city, category or keyword.</div>';
+            return;
+        }
+
+        exhibitionGrid.innerHTML = filtered.map((item, index) => `
+            <article class="exhibition-card">
+                <div class="exhibition-top">
+                    <span class="exhibition-category">${item.category}</span>
+                    <span class="exhibition-date">${item.date}</span>
+                </div>
+                <h3>${item.name}</h3>
+                <div class="exhibition-meta">
+                    <span>📍 ${item.city}</span>
+                    <span>🏛️ ${item.venue}</span>
+                </div>
+                <div class="exhibition-action">
+                    <span style="font-size:12px;color:#7a8696;">EXHIBIT/OS event</span>
+                    <button class="discover-btn" data-index="${exhibitions.indexOf(item)}">View details →</button>
+                </div>
+            </article>
+        `).join("");
+
+        exhibitionGrid.querySelectorAll(".discover-btn").forEach((button) => {
+            button.addEventListener("click", () => openExhibition(Number(button.dataset.index)));
+        });
+    }
+
+    function openExhibition(index) {
+        const item = exhibitions[index];
+        document.getElementById("modalCategory").textContent = item.category;
+        document.getElementById("modalTitle").textContent = item.name;
+        document.getElementById("modalMeta").textContent = `📅 ${item.date}  ·  📍 ${item.city}  ·  🏛️ ${item.venue}`;
+        document.getElementById("modalDescription").textContent = item.description;
+        exhibitionModal.classList.add("show");
+        exhibitionModal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeExhibition() {
+        exhibitionModal.classList.remove("show");
+        exhibitionModal.setAttribute("aria-hidden", "true");
+    }
+
+    [exhibitionSearch, cityFilter, categoryFilter].forEach((control) => {
+        control.addEventListener("input", renderExhibitions);
+        control.addEventListener("change", renderExhibitions);
+    });
+
+    modalClose.addEventListener("click", closeExhibition);
+    exhibitionModal.addEventListener("click", (event) => {
+        if (event.target === exhibitionModal) closeExhibition();
+    });
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeExhibition();
+    });
+
+    renderExhibitions();
+
+    const slides = document.querySelectorAll(".hero-slide");
+    const dots = document.querySelectorAll(".slider-dot");
+
+    let currentSlide = 0;
+    let slideTimer;
+
+
+    function showSlide(index) {
+
+        slides.forEach((slide) => {
+            slide.classList.remove("active");
+        });
+
+        dots.forEach((dot) => {
+            dot.classList.remove("active");
+        });
+
+
+        slides[index].classList.add("active");
+        dots[index].classList.add("active");
+
+        currentSlide = index;
+    }
+
+
+    function nextSlide() {
+
+        let next = currentSlide + 1;
+
+        if (next >= slides.length) {
+            next = 0;
+        }
+
+        showSlide(next);
+    }
+
+
+    function startSlider() {
+
+        clearInterval(slideTimer);
+
+        slideTimer = setInterval(
+            nextSlide,
+            5000
+        );
+    }
+
+
+    dots.forEach((dot) => {
+
+        dot.addEventListener("click", () => {
+
+            const index =
+                Number(dot.dataset.slide);
+
+            showSlide(index);
+
+            startSlider();
+
+        });
+
+    });
+
+
+    startSlider();
+
+</script>
 
 </body>
 </html>

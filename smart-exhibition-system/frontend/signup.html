@@ -3,131 +3,1274 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign up — Exhibition Management System</title>
+
+<title>Create Account — Smart Exhibition System</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="css/style.css">
+
+<style>
+/* =========================================================
+   SIGNUP PAGE
+========================================================= */
+
+:root {
+    --navy: #07111f;
+    --navy-2: #0b1728;
+    --card: rgba(15, 29, 47, 0.88);
+    --border: rgba(255, 255, 255, 0.10);
+    --text: #f7f9fc;
+    --muted: #9aa8ba;
+    --orange: #ff6a00;
+    --orange-light: #ff8a3d;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 10% 20%, rgba(255, 106, 0, 0.12), transparent 28%),
+        radial-gradient(circle at 90% 80%, rgba(255, 106, 0, 0.08), transparent 30%),
+        linear-gradient(135deg, #050d18 0%, #091522 50%, #07111f 100%);
+    color: var(--text);
+    font-family: "DM Sans", sans-serif;
+}
+
+/* Background decoration */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.25;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.topbar {
+    height: 76px;
+    padding: 0 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    background: rgba(5, 13, 24, 0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.topbar a {
+    color: inherit;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    color: #fff;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+}
+
+.brand .dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--orange);
+
+    box-shadow:
+        0 0 0 5px rgba(255,106,0,0.10),
+        0 0 20px rgba(255,106,0,0.45);
+}
+
+.links {
+    display: flex;
+    align-items: center;
+}
+
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+    padding: 0 20px;
+
+    color: #fff !important;
+    text-decoration: none;
+
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    background: rgba(255,255,255,0.04);
+
+    transition: 0.25s ease;
+}
+
+.btn-outline:hover {
+    border-color: rgba(255,106,0,0.55);
+    background: rgba(255,106,0,0.08);
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+   MAIN LAYOUT
+========================================================= */
+
+.auth-wrap {
+    width: min(1180px, calc(100% - 40px));
+    margin: 45px auto 70px;
+
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 55px;
+
+    align-items: center;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.signup-info {
+    padding: 20px 0;
+}
+
+.info-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 13px;
+
+    border: 1px solid rgba(255,106,0,0.22);
+    border-radius: 999px;
+
+    background: rgba(255,106,0,0.07);
+
+    color: #ff9b61;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+.info-badge span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    box-shadow: 0 0 12px rgba(255,106,0,0.7);
+}
+
+.signup-info h2 {
+    margin: 22px 0 16px;
+
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(38px, 4vw, 58px);
+    line-height: 1.02;
+    letter-spacing: -2.5px;
+}
+
+.signup-info h2 span {
+    color: var(--orange);
+}
+
+.info-description {
+    max-width: 500px;
+
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* Benefits */
+
+.benefits {
+    margin-top: 35px;
+    display: grid;
+    gap: 15px;
+}
+
+.benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.benefit-icon {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid rgba(255,106,0,0.20);
+    border-radius: 11px;
+
+    background: rgba(255,106,0,0.08);
+
+    color: var(--orange);
+    font-size: 17px;
+}
+
+.benefit-text strong {
+    display: block;
+    margin-bottom: 3px;
+
+    color: #fff;
+    font-size: 14px;
+}
+
+.benefit-text span {
+    color: #7f8da0;
+    font-size: 13px;
+}
+
+/* =========================================================
+   SIGNUP CARD
+========================================================= */
+
+.auth-card {
+    width: 100%;
+    max-width: 620px;
+    margin-left: auto;
+
+    padding: 34px;
+
+    border: 1px solid var(--border);
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(19,34,52,0.94),
+            rgba(8,20,34,0.92)
+        );
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.40),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+
+    backdrop-filter: blur(20px);
+}
+
+/* Card header */
+
+.eyebrow {
+    color: var(--orange);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+
+.auth-card h1 {
+    margin: 8px 0 7px;
+
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 32px;
+    letter-spacing: -1px;
+}
+
+.sub {
+    margin: 0 0 25px;
+
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   ROLE SELECTOR
+========================================================= */
+
+.role-select {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+
+    margin-bottom: 24px;
+    padding: 5px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 13px;
+
+    background: rgba(0,0,0,0.16);
+}
+
+.role-select input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.role-select label {
+    min-height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    color: #8795a8;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.role-select label:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.04);
+}
+
+.role-select input:checked + label {
+    color: #fff;
+
+    background: linear-gradient(
+        135deg,
+        var(--orange),
+        #e95100
+    );
+
+    box-shadow:
+        0 7px 20px rgba(255,106,0,0.22);
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.field {
+    margin-bottom: 17px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 7px;
+
+    color: #d9e0e8;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.field input,
+.field select {
+    width: 100%;
+    height: 47px;
+
+    padding: 0 14px;
+
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 10px;
+
+    outline: none;
+
+    color: #fff;
+    background: rgba(3,10,18,0.52);
+
+    font-family: inherit;
+    font-size: 14px;
+
+    transition: 0.2s ease;
+}
+
+.field input::placeholder {
+    color: #59687b;
+}
+
+.field select {
+    cursor: pointer;
+}
+
+.field select option {
+    background: #0b1728;
+    color: #fff;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: rgba(255,106,0,0.70);
+
+    box-shadow:
+        0 0 0 3px rgba(255,106,0,0.09);
+}
+
+/* =========================================================
+   CONDITIONAL FIELDS
+========================================================= */
+
+.conditional-fields {
+    display: none;
+
+    padding: 18px;
+
+    margin: 4px 0 20px;
+
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+
+    background: rgba(255,255,255,0.025);
+
+    animation: fadeIn 0.25s ease;
+}
+
+.conditional-fields.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Error */
+
+.error-text {
+    min-height: 20px;
+
+    margin: 4px 0 8px;
+
+    color: #ff7676;
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.btn-full {
+    width: 100%;
+}
+
+.btn-copper {
+    min-height: 50px;
+
+    border: 0;
+    border-radius: 11px;
+
+    color: #fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7615,
+            #e95500
+        );
+
+    box-shadow:
+        0 12px 30px rgba(255,106,0,0.20);
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.btn-copper:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 16px 35px rgba(255,106,0,0.30);
+}
+
+.btn-copper:active {
+    transform: translateY(0);
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.form-footer {
+    margin-top: 22px;
+
+    color: #77869a;
+
+    text-align: center;
+    font-size: 13px;
+}
+
+.form-footer a {
+    color: #ff8845;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================================
+   SECURITY NOTE
+========================================================= */
+
+.security-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    margin-top: 17px;
+
+    color: #637287;
+    font-size: 11px;
+}
+
+.security-note svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .auth-wrap {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin-top: 30px;
+    }
+
+    .signup-info {
+        text-align: center;
+    }
+
+    .info-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .benefits {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+
+        text-align: left;
+    }
+
+    .auth-card {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .topbar {
+        height: 68px;
+        padding: 0 20px;
+    }
+
+    .brand {
+        font-size: 16px;
+    }
+
+    .btn-outline {
+        min-height: 38px;
+        padding: 0 15px;
+        font-size: 12px;
+    }
+
+    .auth-wrap {
+        width: min(100% - 24px, 620px);
+        margin-top: 25px;
+        margin-bottom: 40px;
+    }
+
+    .signup-info {
+        padding: 10px 5px;
+    }
+
+    .signup-info h2 {
+        font-size: 38px;
+        letter-spacing: -1.8px;
+    }
+
+    .info-description {
+        font-size: 14px;
+    }
+
+    .auth-card {
+        padding: 23px 18px;
+        border-radius: 18px;
+    }
+
+    .auth-card h1 {
+        font-size: 27px;
+    }
+
+    .role-select label {
+        font-size: 11px;
+    }
+
+    .conditional-fields {
+        padding: 14px;
+    }
+}
+</style>
 </head>
+
 <body>
 
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
 <nav class="topbar">
-  <a href="index.html" style="text-decoration:none;">
-    <div class="brand"><span class="dot"></span> EXHIBIT/OS</div>
-  </a>
-  <div class="links">
-    <a href="login.html" class="btn-outline">Log in</a>
-  </div>
+
+    <a href="index.html" style="text-decoration:none;">
+        <div class="brand">
+            <span class="dot"></span>
+            SMART EXHIBITION SYSTEM
+        </div>
+    </a>
+
+    <div class="links">
+        <a href="login.html" class="btn-outline">
+            Log in
+        </a>
+    </div>
+
 </nav>
 
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
 <div class="auth-wrap">
-  <div class="auth-card">
-    <div class="eyebrow">Get started</div>
-    <h1>Create an account</h1>
-    <p class="sub">Choose your role — the form adjusts to what we need from you.</p>
 
-    <form id="signupForm">
-      <div class="role-select">
-        <input type="radio" name="role" id="role-organizer" value="organizer" checked>
-        <label for="role-organizer">Organizer</label>
 
-        <input type="radio" name="role" id="role-exhibitor" value="exhibitor">
-        <label for="role-exhibitor">Exhibitor</label>
+    <!-- =================================================
+         LEFT INFORMATION
+    ================================================== -->
 
-        <input type="radio" name="role" id="role-visitor" value="visitor">
-        <label for="role-visitor">Visitor</label>
-      </div>
+    <section class="signup-info">
 
-      <div class="field">
-        <label for="name">Full name</label>
-        <input type="text" id="name" name="name" placeholder="Your name" required>
-      </div>
-      <div class="field">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="you@company.com" required>
-      </div>
-      <div class="field">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="At least 8 characters" minlength="8" required>
-      </div>
-      <div class="field">
-        <label for="phone">Phone</label>
-        <input type="tel" id="phone" name="phone" placeholder="Your phone number">
-      </div>
+        <div class="info-badge">
+            <span></span>
+            Smart exhibition platform
+        </div>
 
-      <!-- Organizer-specific fields -->
-      <div class="conditional-fields active" id="fields-organizer">
-        <div class="field">
-          <label for="organization_name">Organization name</label>
-          <input type="text" id="organization_name" name="organization_name" placeholder="e.g. Apex Expo Group">
-        </div>
-        <div class="field">
-          <label for="org_city">City</label>
-          <input type="text" id="org_city" name="city" placeholder="e.g. Indore">
-        </div>
-      </div>
+        <h2>
+            Build your<br>
+            <span>exhibition.</span>
+        </h2>
 
-      <!-- Exhibitor-specific fields -->
-      <div class="conditional-fields" id="fields-exhibitor">
-        <div class="field">
-          <label for="business_role">Applying as</label>
-          <select id="business_role" name="business_role">
-            <option value="manufacturer">Manufacturer</option>
-            <option value="distributor">Distributor / Wholesaler</option>
-            <option value="retailer">Retailer / Reseller</option>
-            <option value="service_provider">Service Provider</option>
-            <option value="startup">Startup</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="company_name">Business you're representing</label>
-          <input type="text" id="company_name" name="company_name" placeholder="e.g. Samsung Electronics">
-        </div>
-        <div class="field">
-          <label for="industry">Industry / product category</label>
-          <input type="text" id="industry" name="industry" placeholder="e.g. Consumer Electronics">
-        </div>
-        <div class="field">
-          <label for="gst_number">GST number</label>
-          <input type="text" id="gst_number" name="gst_number" placeholder="Optional">
-        </div>
-      </div>
+        <p class="info-description">
+            Create your account and get access to a smarter
+            way of managing exhibitions, exhibitors, booths,
+            visitors and registrations — all from one platform.
+        </p>
 
-      <!-- Visitor-specific fields -->
-      <div class="conditional-fields" id="fields-visitor">
-        <div class="field">
-          <label for="visitor_company">Company / organization</label>
-          <input type="text" id="visitor_company" name="company" placeholder="Where you work (optional)">
-        </div>
-        <div class="field">
-          <label for="designation">Designation</label>
-          <input type="text" id="designation" name="designation" placeholder="e.g. Procurement Manager">
-        </div>
-        <div class="field">
-          <label for="purpose">What are you here for?</label>
-          <select id="purpose" name="purpose">
-            <option value="sourcing">Sourcing / buying products</option>
-            <option value="networking">Business networking</option>
-            <option value="investment">Investment opportunities</option>
-            <option value="media">Media / press</option>
-            <option value="exploring">Just exploring</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="interested_categories">Interested categories</label>
-          <input type="text" id="interested_categories" name="interested_categories" placeholder="e.g. Electronics, Textiles">
-        </div>
-      </div>
 
-      <div class="error-text" id="formError"></div>
-      <button type="submit" class="btn btn-copper btn-full" style="margin-top:6px;">Create account</button>
-    </form>
+        <div class="benefits">
 
-    <div class="form-footer">
-      Already have an account? <a href="login.html">Log in</a>
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    ✓
+                </div>
+
+                <div class="benefit-text">
+                    <strong>One platform for every role</strong>
+                    <span>Organizer, exhibitor and visitor workflows.</span>
+                </div>
+
+            </div>
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    ◈
+                </div>
+
+                <div class="benefit-text">
+                    <strong>Real-time exhibition management</strong>
+                    <span>Keep booths, registrations and records organized.</span>
+                </div>
+
+            </div>
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    ↗
+                </div>
+
+                <div class="benefit-text">
+                    <strong>Designed to scale</strong>
+                    <span>Start simple and grow your exhibition operations.</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         SIGNUP CARD
+    ================================================== -->
+
+    <div class="auth-card">
+
+        <div class="eyebrow">
+            Get started
+        </div>
+
+        <h1>Create an account</h1>
+
+        <p class="sub">
+            Select your role and tell us a little about yourself.
+        </p>
+
+
+        <!-- =================================================
+             SIGNUP FORM
+        ================================================== -->
+
+        <form id="signupForm">
+
+
+            <!-- ROLE -->
+
+            <div class="role-select">
+
+                <input
+                    type="radio"
+                    name="role"
+                    id="role-organizer"
+                    value="organizer"
+                    checked
+                >
+
+                <label for="role-organizer">
+                    Organizer
+                </label>
+
+
+                <input
+                    type="radio"
+                    name="role"
+                    id="role-exhibitor"
+                    value="exhibitor"
+                >
+
+                <label for="role-exhibitor">
+                    Exhibitor
+                </label>
+
+
+                <input
+                    type="radio"
+                    name="role"
+                    id="role-visitor"
+                    value="visitor"
+                >
+
+                <label for="role-visitor">
+                    Visitor
+                </label>
+
+            </div>
+
+
+            <!-- BASIC DETAILS -->
+
+            <div class="field">
+
+                <label for="name">
+                    Full name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Your name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="you@company.com"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="At least 8 characters"
+                    minlength="8"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="phone">
+                    Phone
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Your phone number"
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 ORGANIZER
+            ================================================== -->
+
+            <div
+                class="conditional-fields active"
+                id="fields-organizer"
+            >
+
+                <div class="field">
+
+                    <label for="organization_name">
+                        Organization name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="organization_name"
+                        name="organization_name"
+                        placeholder="e.g. Apex Expo Group"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="org_city">
+                        City
+                    </label>
+
+                    <input
+                        type="text"
+                        id="org_city"
+                        name="city"
+                        placeholder="e.g. Indore"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 EXHIBITOR
+            ================================================== -->
+
+            <div
+                class="conditional-fields"
+                id="fields-exhibitor"
+            >
+
+                <div class="field">
+
+                    <label for="business_role">
+                        Applying as
+                    </label>
+
+                    <select
+                        id="business_role"
+                        name="business_role"
+                    >
+
+                        <option value="manufacturer">
+                            Manufacturer
+                        </option>
+
+                        <option value="distributor">
+                            Distributor / Wholesaler
+                        </option>
+
+                        <option value="retailer">
+                            Retailer / Reseller
+                        </option>
+
+                        <option value="service_provider">
+                            Service Provider
+                        </option>
+
+                        <option value="startup">
+                            Startup
+                        </option>
+
+                        <option value="other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="company_name">
+                        Business you're representing
+                    </label>
+
+                    <input
+                        type="text"
+                        id="company_name"
+                        name="company_name"
+                        placeholder="e.g. Samsung Electronics"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="industry">
+                        Industry / product category
+                    </label>
+
+                    <input
+                        type="text"
+                        id="industry"
+                        name="industry"
+                        placeholder="e.g. Consumer Electronics"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="gst_number">
+                        GST number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="gst_number"
+                        name="gst_number"
+                        placeholder="Optional"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 VISITOR
+            ================================================== -->
+
+            <div
+                class="conditional-fields"
+                id="fields-visitor"
+            >
+
+                <div class="field">
+
+                    <label for="visitor_company">
+                        Company / organization
+                    </label>
+
+                    <input
+                        type="text"
+                        id="visitor_company"
+                        name="company"
+                        placeholder="Where you work (optional)"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="designation">
+                        Designation
+                    </label>
+
+                    <input
+                        type="text"
+                        id="designation"
+                        name="designation"
+                        placeholder="e.g. Procurement Manager"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="purpose">
+                        What are you here for?
+                    </label>
+
+                    <select
+                        id="purpose"
+                        name="purpose"
+                    >
+
+                        <option value="sourcing">
+                            Sourcing / buying products
+                        </option>
+
+                        <option value="networking">
+                            Business networking
+                        </option>
+
+                        <option value="investment">
+                            Investment opportunities
+                        </option>
+
+                        <option value="media">
+                            Media / press
+                        </option>
+
+                        <option value="exploring">
+                            Just exploring
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="interested_categories">
+                        Interested categories
+                    </label>
+
+                    <input
+                        type="text"
+                        id="interested_categories"
+                        name="interested_categories"
+                        placeholder="e.g. Electronics, Textiles"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- ERROR -->
+
+            <div
+                class="error-text"
+                id="formError"
+            ></div>
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="btn btn-copper btn-full"
+                style="margin-top:6px;"
+            >
+                Create account
+            </button>
+
+
+            <!-- SECURITY -->
+
+            <div class="security-note">
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <rect
+                        x="5"
+                        y="10"
+                        width="14"
+                        height="10"
+                        rx="2"
+                    />
+
+                    <path d="M8 10V7a4 4 0 018 0v3"/>
+                </svg>
+
+                Your account details are securely handled.
+
+            </div>
+
+        </form>
+
+
+        <!-- FOOTER -->
+
+        <div class="form-footer">
+
+            Already have an account?
+
+            <a href="login.html">
+                Log in
+            </a>
+
+        </div>
+
     </div>
-  </div>
+
 </div>
+
+
+<!-- =====================================================
+     EXISTING AUTH SYSTEM
+===================================================== -->
 
 <script src="js/api.js"></script>
 <script src="js/auth.js"></script>
+
+
+<!-- =====================================================
+     ROLE SWITCHING
+===================================================== -->
+
+<script>
+
+const roleInputs = document.querySelectorAll(
+    'input[name="role"]'
+);
+
+const organizerFields =
+    document.getElementById("fields-organizer");
+
+const exhibitorFields =
+    document.getElementById("fields-exhibitor");
+
+const visitorFields =
+    document.getElementById("fields-visitor");
+
+
+function updateRoleFields() {
+
+    const selectedRole =
+        document.querySelector(
+            'input[name="role"]:checked'
+        )?.value;
+
+
+    organizerFields.classList.remove("active");
+    exhibitorFields.classList.remove("active");
+    visitorFields.classList.remove("active");
+
+
+    if (selectedRole === "organizer") {
+
+        organizerFields.classList.add("active");
+
+    }
+
+    if (selectedRole === "exhibitor") {
+
+        exhibitorFields.classList.add("active");
+
+    }
+
+    if (selectedRole === "visitor") {
+
+        visitorFields.classList.add("active");
+
+    }
+
+}
+
+
+roleInputs.forEach(input => {
+
+    input.addEventListener(
+        "change",
+        updateRoleFields
+    );
+
+});
+
+
+updateRoleFields();
+
+</script>
+
 </body>
 </html>
