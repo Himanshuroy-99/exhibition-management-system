@@ -1,4 +1,7 @@
 // Central API helper for the Smart Exhibition frontend.
+// after checking again set base_url for the deployed form 
+// https://smart-exhibition-system.onrender.com/api
+// http://localhost:5000/api
 const BASE_URL = "https://smart-exhibition-system.onrender.com/api";
 const DEMO_MODE = false;
 

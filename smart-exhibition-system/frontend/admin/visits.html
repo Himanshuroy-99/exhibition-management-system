@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Users — EXHIBIT/OS Admin</title>
+<title>Visits — EXHIBIT/OS Admin</title>
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/dashboard.css">
 </head>
@@ -16,8 +16,10 @@
     <div class="role-tag">Admin Panel</div>
     <nav>
       <a href="dashboard.html">Dashboard</a>
-      <a href="users.html" class="active">Users</a>
-      <a href="exhibitions.html">All Exhibitions</a>
+      <a href="users.html">Users</a>
+      <a href="exhibitions.html">Exhibitions</a>
+      <a href="participants.html">Participants</a>
+      <a href="visits.html" class="active">Visits</a>
     </nav>
     <div class="sidebar-footer">
       <a href="../login.html" class="logout-link">← Log out</a>
@@ -26,7 +28,7 @@
 
   <main class="dash-main">
     <div class="dash-topbar">
-      <h1>Users</h1>
+      <h1>Visits</h1>
       <div class="user-chip">
         <div class="avatar" id="userInitial">A</div>
         <span id="userName">Admin</span>
@@ -37,36 +39,30 @@
 
       <div class="panel">
         <div class="panel-head">
-          <h3>All Users</h3>
+          <h3>Visitor Logs</h3>
         </div>
         <div class="toolbar">
-          <input type="text" id="searchInput" placeholder="Search by name or email...">
-          <select id="roleFilter">
-            <option value="">All roles</option>
-            <option value="organizer">Organizer</option>
-            <option value="exhibitor">Exhibitor</option>
-            <option value="visitor">Visitor</option>
-          </select>
-          <select id="statusFilter">
-            <option value="">All statuses</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-            <option value="banned">Banned</option>
+          <select id="exhibitionFilter">
+            <option value="">All exhibitions</option>
+            <!-- options injected by admin-visits.js -->
           </select>
         </div>
         <table class="data-table">
           <thead>
             <tr>
-              <th>Name</th>
+              <th>Visitor</th>
               <th>Email</th>
-              <th>Role</th>
-              <th>Joined</th>
-              <th>Status</th>
-              <th>Actions</th>
+              <th>City</th>
+              <th>Exhibition</th>
+              <th>Hall / Booth</th>
+              <th>Exhibitor</th>
+              <th>Visit Date</th>
+              <th>Entry</th>
+              <th>Duration</th>
             </tr>
           </thead>
-          <tbody id="usersBody">
-            <!-- rows injected by admin-users.js -->
+          <tbody id="visitsBody">
+            <!-- rows injected -->
           </tbody>
         </table>
       </div>
@@ -76,6 +72,7 @@
 </div>
 
 <script src="../js/api.js"></script>
-<script src="../js/admin-users.js"></script>
+<script src="../js/admin-common.js"></script>
+<script src="../js/admin-visits.js"></script>
 </body>
 </html>

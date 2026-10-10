@@ -11,13 +11,16 @@
 
 <div class="dash-shell">
 
+  <!-- ===== Admin sidebar (shared across admin pages) ===== -->
   <aside class="sidebar" id="sidebar">
     <div class="brand"><span class="dot"></span> EXHIBIT/OS</div>
     <div class="role-tag">Admin Panel</div>
     <nav>
       <a href="dashboard.html" class="active">Dashboard</a>
       <a href="users.html">Users</a>
-      <a href="exhibitions.html">All Exhibitions</a>
+      <a href="exhibitions.html">Exhibitions</a>
+      <a href="participants.html">Participants</a>
+      <a href="visits.html">Visits</a>
     </nav>
     <div class="sidebar-footer">
       <a href="../login.html" class="logout-link">← Log out</a>
@@ -35,6 +38,7 @@
 
     <div class="dash-body">
 
+      <!-- ===== Primary counters ===== -->
       <div class="stat-grid">
         <div class="stat-card">
           <div class="label">Total Users</div>
@@ -51,6 +55,30 @@
         <div class="stat-card copper">
           <div class="label">Total Visitors</div>
           <div class="value" id="statVisitors">—</div>
+        </div>
+      </div>
+
+      <!-- ===== Extended operational counters ===== -->
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="label">Pending Bookings</div>
+          <div class="value" id="statPendingBookings">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Booths Allocated</div>
+          <div class="value" id="statBooths">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Total Visits</div>
+          <div class="value" id="statVisits">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Total Leads</div>
+          <div class="value" id="statLeads">—</div>
+        </div>
+        <div class="stat-card copper">
+          <div class="label">Avg. Feedback</div>
+          <div class="value" id="statFeedback">—</div>
         </div>
       </div>
 
@@ -87,6 +115,7 @@
 </div>
 
 <script src="../js/api.js"></script>
+<script src="../js/admin-common.js"></script>
 <script src="../js/admin.js"></script>
 </body>
 </html>

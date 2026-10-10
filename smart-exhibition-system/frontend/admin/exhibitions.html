@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All Exhibitions — EXHIBIT/OS Admin</title>
+<title>Exhibitions — EXHIBIT/OS Admin</title>
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/dashboard.css">
 </head>
@@ -17,7 +17,9 @@
     <nav>
       <a href="dashboard.html">Dashboard</a>
       <a href="users.html">Users</a>
-      <a href="exhibitions.html" class="active">All Exhibitions</a>
+      <a href="exhibitions.html" class="active">Exhibitions</a>
+      <a href="participants.html">Participants</a>
+      <a href="visits.html">Visits</a>
     </nav>
     <div class="sidebar-footer">
       <a href="../login.html" class="logout-link">← Log out</a>
@@ -47,6 +49,7 @@
             <option value="upcoming">Upcoming</option>
             <option value="ongoing">Ongoing</option>
             <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
           </select>
         </div>
         <table class="data-table">
@@ -56,6 +59,10 @@
               <th>Organizer</th>
               <th>Venue</th>
               <th>Dates</th>
+              <th>Halls / Booths</th>
+              <th>Participants</th>
+              <th>Visitors</th>
+              <th>Leads</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -70,7 +77,59 @@
   </main>
 </div>
 
+<!-- ===== Admin edit exhibition modal ===== -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Edit Exhibition</h3>
+      <button class="modal-close" onclick="closeEditModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editId">
+      <div class="field-row">
+        <div class="field">
+          <label>Title</label>
+          <input type="text" id="editTitle">
+        </div>
+        <div class="field">
+          <label>Venue</label>
+          <input type="text" id="editVenue">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Start date</label>
+          <input type="date" id="editStart">
+        </div>
+        <div class="field">
+          <label>End date</label>
+          <input type="date" id="editEnd">
+        </div>
+      </div>
+      <div class="field">
+        <label>Status</label>
+        <select id="editStatus">
+          <option value="draft">Draft</option>
+          <option value="upcoming">Upcoming</option>
+          <option value="ongoing">Ongoing</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <textarea id="editDescription" rows="3" style="width:100%;padding:10px 12px;border:1px solid #C9D6E2;border-radius:2px;font-family:inherit;font-size:13.5px;"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost-light" onclick="closeEditModal()">Cancel</button>
+      <button class="btn btn-copper" onclick="saveExhibition()">Save changes</button>
+    </div>
+  </div>
+</div>
+
 <script src="../js/api.js"></script>
+<script src="../js/admin-common.js"></script>
 <script src="../js/admin-exhibitions.js"></script>
 </body>
 </html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exhibition Detail — EXHIBIT/OS Admin</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+<style>
+  /* Tabs (page-local, reuses existing color tokens) */
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; border-bottom:1px solid #D8E2EC; margin-bottom:22px;}
+  .tab-btn{
+    background:none; border:none; cursor:pointer;
+    padding:12px 18px; font-size:14px; color:var(--ink-soft);
+    border-bottom:2px solid transparent; font-family:inherit;
+  }
+  .tab-btn:hover{color:var(--ink);}
+  .tab-btn.active{color:var(--navy); border-bottom-color:var(--copper); font-weight:600;}
+  .tab-section{display:none;}
+  .tab-section.active{display:block;}
+</style>
+</head>
+<body>
+
+<div class="dash-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><span class="dot"></span> EXHIBIT/OS</div>
+    <div class="role-tag">Admin Panel</div>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="users.html">Users</a>
+      <a href="exhibitions.html" class="active">Exhibitions</a>
+      <a href="participants.html">Participants</a>
+      <a href="visits.html">Visits</a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="../login.html" class="logout-link">← Log out</a>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <h1 id="pageTitle">Exhibition</h1>
+      <div class="user-chip">
+        <div class="avatar" id="userInitial">A</div>
+        <span id="userName">Admin</span>
+      </div>
+    </div>
+
+    <div class="dash-body">
+      <p style="margin:0 0 18px;"><a href="exhibitions.html" style="color:var(--blueline);font-size:13.5px;">← Back to exhibitions</a></p>
+
+      <!-- ===== Overview ===== -->
+      <div class="panel" style="margin-bottom:22px;">
+        <div class="panel-head">
+          <h3>Overview</h3>
+          <button class="btn btn-copper" id="editBtn" onclick="openEditModal()">Edit exhibition</button>
+        </div>
+        <div style="padding:22px;">
+          <div class="stat-grid" id="overviewStats"><!-- injected --></div>
+          <table class="data-table">
+            <tbody id="overviewBody"><!-- injected --></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== Tabs ===== -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="halls" onclick="showTab('halls')">Halls &amp; Booths</button>
+        <button class="tab-btn" data-tab="participants" onclick="showTab('participants')">Participants</button>
+        <button class="tab-btn" data-tab="bookings" onclick="showTab('bookings')">Bookings</button>
+        <button class="tab-btn" data-tab="visits" onclick="showTab('visits')">Visits</button>
+        <button class="tab-btn" data-tab="leads" onclick="showTab('leads')">Leads</button>
+        <button class="tab-btn" data-tab="feedback" onclick="showTab('feedback')">Feedback</button>
+      </div>
+
+      <div class="panel">
+        <!-- Halls & Booths -->
+        <div class="tab-section active" id="tab-halls">
+          <table class="data-table">
+            <thead><tr><th>Hall</th><th>Floor</th><th>Booth</th><th>Category</th><th>Size</th><th>Price</th><th>Status</th></tr></thead>
+            <tbody id="hallsBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Participants -->
+        <div class="tab-section" id="tab-participants">
+          <table class="data-table">
+            <thead><tr><th>Company</th><th>Contact</th><th>Email / Phone</th><th>Industry</th><th>Hall / Booth</th><th>Registered</th><th>Status</th></tr></thead>
+            <tbody id="participantsBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Bookings -->
+        <div class="tab-section" id="tab-bookings">
+          <table class="data-table">
+            <thead><tr><th>Company</th><th>Booth</th><th>Booked On</th><th>Created</th><th>Status</th></tr></thead>
+            <tbody id="bookingsBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Visits -->
+        <div class="tab-section" id="tab-visits">
+          <table class="data-table">
+            <thead><tr><th>Visitor</th><th>Email</th><th>City</th><th>Hall / Booth</th><th>Exhibitor</th><th>Entry</th><th>Duration</th></tr></thead>
+            <tbody id="visitsBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Leads -->
+        <div class="tab-section" id="tab-leads">
+          <table class="data-table">
+            <thead><tr><th>Visitor</th><th>Company</th><th>Product</th><th>Interest</th><th>Status</th><th>Remarks</th><th>Created</th></tr></thead>
+            <tbody id="leadsBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Feedback -->
+        <div class="tab-section" id="tab-feedback">
+          <table class="data-table">
+            <thead><tr><th>Visitor</th><th>Email</th><th>Rating</th><th>Review</th><th>Date</th></tr></thead>
+            <tbody id="feedbackBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- ===== Admin edit exhibition modal ===== -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Edit Exhibition</h3>
+      <button class="modal-close" onclick="closeEditModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-row">
+        <div class="field"><label>Title</label><input type="text" id="editTitle"></div>
+        <div class="field"><label>Venue</label><input type="text" id="editVenue"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Start date</label><input type="date" id="editStart"></div>
+        <div class="field"><label>End date</label><input type="date" id="editEnd"></div>
+      </div>
+      <div class="field">
+        <label>Status</label>
+        <select id="editStatus">
+          <option value="draft">Draft</option>
+          <option value="upcoming">Upcoming</option>
+          <option value="ongoing">Ongoing</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <textarea id="editDescription" rows="3" style="width:100%;padding:10px 12px;border:1px solid #C9D6E2;border-radius:2px;font-family:inherit;font-size:13.5px;"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost-light" onclick="closeEditModal()">Cancel</button>
+      <button class="btn btn-copper" onclick="saveExhibition()">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/admin-common.js"></script>
+<script src="../js/admin-exhibition-detail.js"></script>
+</body>
+</html>

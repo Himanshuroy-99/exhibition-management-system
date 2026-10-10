@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All Exhibitions — EXHIBIT/OS Admin</title>
+<title>Participants — EXHIBIT/OS Admin</title>
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/dashboard.css">
 </head>
@@ -17,7 +17,9 @@
     <nav>
       <a href="dashboard.html">Dashboard</a>
       <a href="users.html">Users</a>
-      <a href="exhibitions.html" class="active">All Exhibitions</a>
+      <a href="exhibitions.html">Exhibitions</a>
+      <a href="participants.html" class="active">Participants</a>
+      <a href="visits.html">Visits</a>
     </nav>
     <div class="sidebar-footer">
       <a href="../login.html" class="logout-link">← Log out</a>
@@ -26,7 +28,7 @@
 
   <main class="dash-main">
     <div class="dash-topbar">
-      <h1>All Exhibitions</h1>
+      <h1>Participants</h1>
       <div class="user-chip">
         <div class="avatar" id="userInitial">A</div>
         <span id="userName">Admin</span>
@@ -37,31 +39,29 @@
 
       <div class="panel">
         <div class="panel-head">
-          <h3>Platform-wide Exhibitions</h3>
+          <h3>Exhibitor Participation</h3>
         </div>
         <div class="toolbar">
-          <input type="text" id="searchInput" placeholder="Search by title, venue, or organizer...">
-          <select id="statusFilter">
-            <option value="">All statuses</option>
-            <option value="draft">Draft</option>
-            <option value="upcoming">Upcoming</option>
-            <option value="ongoing">Ongoing</option>
-            <option value="completed">Completed</option>
+          <select id="exhibitionFilter">
+            <option value="">All exhibitions</option>
+            <!-- options injected by admin-participants.js -->
           </select>
         </div>
         <table class="data-table">
           <thead>
             <tr>
-              <th>Title</th>
-              <th>Organizer</th>
-              <th>Venue</th>
-              <th>Dates</th>
+              <th>Company</th>
+              <th>Contact</th>
+              <th>Email / Phone</th>
+              <th>Industry</th>
+              <th>Exhibition</th>
+              <th>Hall / Booth</th>
+              <th>Registered</th>
               <th>Status</th>
-              <th>Actions</th>
             </tr>
           </thead>
-          <tbody id="allExhibitionsBody">
-            <!-- rows injected by admin-exhibitions.js -->
+          <tbody id="participantsBody">
+            <!-- rows injected -->
           </tbody>
         </table>
       </div>
@@ -71,6 +71,7 @@
 </div>
 
 <script src="../js/api.js"></script>
-<script src="../js/admin-exhibitions.js"></script>
+<script src="../js/admin-common.js"></script>
+<script src="../js/admin-participants.js"></script>
 </body>
 </html>

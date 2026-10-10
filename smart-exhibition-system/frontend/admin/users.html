@@ -17,7 +17,9 @@
     <nav>
       <a href="dashboard.html">Dashboard</a>
       <a href="users.html" class="active">Users</a>
-      <a href="exhibitions.html">All Exhibitions</a>
+      <a href="exhibitions.html">Exhibitions</a>
+      <a href="participants.html">Participants</a>
+      <a href="visits.html">Visits</a>
     </nav>
     <div class="sidebar-footer">
       <a href="../login.html" class="logout-link">← Log out</a>
@@ -43,6 +45,7 @@
           <input type="text" id="searchInput" placeholder="Search by name or email...">
           <select id="roleFilter">
             <option value="">All roles</option>
+            <option value="admin">Admin</option>
             <option value="organizer">Organizer</option>
             <option value="exhibitor">Exhibitor</option>
             <option value="visitor">Visitor</option>
@@ -51,7 +54,7 @@
             <option value="">All statuses</option>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
-            <option value="banned">Banned</option>
+            <option value="blocked">Blocked</option>
           </select>
         </div>
         <table class="data-table">
@@ -60,6 +63,7 @@
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
+              <th>City / Company</th>
               <th>Joined</th>
               <th>Status</th>
               <th>Actions</th>
@@ -75,7 +79,21 @@
   </main>
 </div>
 
+<!-- ===== User detail modal (filled by admin-users.js) ===== -->
+<div class="modal-overlay" id="userModal">
+  <div class="modal-box" style="max-width:640px;">
+    <div class="modal-head">
+      <h3 id="userModalTitle">User details</h3>
+      <button class="modal-close" onclick="closeUserModal()">×</button>
+    </div>
+    <div class="modal-body" id="userModalBody">
+      <!-- injected -->
+    </div>
+  </div>
+</div>
+
 <script src="../js/api.js"></script>
+<script src="../js/admin-common.js"></script>
 <script src="../js/admin-users.js"></script>
 </body>
 </html>
